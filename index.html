@@ -69,7 +69,7 @@ footer{text-align:center;padding:40px 20px;backdrop-filter:blur(10px);background
 <form id="orderForm" onsubmit="handleSubmit(event)">
 <div class="form-group"><label>Ваше имя</label><input type="text" id="name" required placeholder="Иван Иванов"></div>
 <div class="form-group"><label>Email</label><input type="email" id="email" required placeholder="example@mail.com"></div>
-<div class="form-group"><label>Тип сайта</label><select id="siteType" required onchange="updatePrice()"><option value="">Выберите тип</option><option value="landing">Визитка/Лендинг (80₽)</option><option value="platform">Интерактивная платформа (100₽)</option><option value="fullstack">Веб-сайт с Supabase (250₽)</option></select></div>
+<div class="form-group"><label>Тип сайта</label><select id="siteType" required onchange="updatePrice()"><option value="">Выберите тип</option><option value="landing">Визитка/Лендинг (1000₽)</option><option value="platform">Интерактивная платформа (2500₽)</option><option value="fullstack">Веб-сайт с Supabase (5000₽)</option></select></div>
 <div class="price-display" id="priceDisplay" style="display:none">Стоимость: <span id="priceValue">0</span>₽</div>
 <div class="form-group"><label>Описание проекта</label><textarea id="description" required placeholder="Расскажите о проекте..."></textarea></div>
 <button type="submit" class="btn" style="width:100%">Отправить заявку</button>
