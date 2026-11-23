@@ -1,0 +1,683 @@
+
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#090910">
+<title>Xcortex — Digital Studio</title>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+<style>
+:root{
+ --bg:#090910;
+ --panel:#12121e;
+ --purple:#9562ff;
+ --blue:#557cff;
+ --text:#f7f5ff;
+ --muted:#a09eb5;
+ --border:rgba(255,255,255,.09);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+ background:var(--bg);color:var(--text);
+ font-family:Manrope,sans-serif;
+ min-height:100vh;overflow-x:hidden;
+}
+button,a{font:inherit}
+a{text-decoration:none;color:inherit}
+button{cursor:pointer}
+body:before{
+ content:"";position:fixed;inset:0;z-index:-1;
+ pointer-events:none;
+ background:
+ radial-gradient(ellipse at 10% 10%,#7137c529,transparent 40%),
+ radial-gradient(ellipse at 90% 60%,#315bd51c,transparent 40%);
+}
+.container{width:min(1120px,91%);margin:auto}
+
+/* HEADER */
+header{
+ position:sticky;top:0;z-index:100;
+ background:#090910d9;
+ backdrop-filter:blur(20px);
+ border-bottom:1px solid var(--border);
+}
+.header{
+ height:75px;display:flex;
+ align-items:center;justify-content:space-between;
+ gap:20px;
+}
+.logo{font-size:27px;font-weight:800;letter-spacing:-1.5px}
+.logo span{color:var(--purple)}
+.header-right{display:flex;align-items:center;gap:15px}
+.mail-button,.primary{
+ border:0;border-radius:12px;padding:13px 20px;
+ color:white;font-weight:800;
+ background:linear-gradient(110deg,#8c50f7,#4d70ff);
+ transition:.3s;display:inline-flex;
+ justify-content:center;align-items:center;gap:8px;
+}
+.mail-button:hover,.primary:hover{
+ transform:translateY(-3px);
+ box-shadow:0 10px 35px #8955ff55;
+}
+.menu-toggle{
+ display:none;background:none;color:white;
+ border:1px solid var(--border);
+ border-radius:10px;padding:9px 13px;font-size:20px;
+}
+
+/* NAV TABS */
+.nav-wrap{border-top:1px solid var(--border)}
+.tabs{
+ display:flex;align-items:center;gap:7px;
+ overflow-x:auto;padding:12px 0;
+ scrollbar-width:none;
+}
+.tabs::-webkit-scrollbar{display:none}
+.tab{
+ flex-shrink:0;border:1px solid transparent;
+ background:transparent;color:var(--muted);
+ padding:10px 17px;border-radius:10px;
+ font-size:12px;font-weight:700;transition:.3s;
+}
+.tab:hover{background:#ffffff0b;color:white}
+.tab.active{
+ color:white;background:#8755ff20;
+ border-color:#9366ff55;
+}
+
+/* MAIN CONTENT */
+main{min-height:75vh}
+.page{
+ display:none;padding:75px 0 100px;
+ animation:pageIn .45s ease both;
+}
+.page.active{display:block}
+@keyframes pageIn{
+ from{opacity:0;transform:translateY(17px)}
+ to{opacity:1;transform:translateY(0)}
+}
+.eyebrow{
+ display:inline-flex;gap:9px;align-items:center;
+ color:#bba3ff;background:#915cff14;
+ border:1px solid #915cff40;
+ border-radius:30px;padding:9px 15px;
+ font-size:11px;letter-spacing:1px;
+ margin-bottom:25px;
+}
+.dot{
+ width:7px;height:7px;border-radius:50%;
+ background:#a77aff;box-shadow:0 0 12px #a77aff;
+ animation:pulse 2s infinite;
+}
+h1{
+ font-size:clamp(46px,8vw,85px);
+ letter-spacing:-4px;line-height:1.07;
+}
+h2{font-size:clamp(30px,5vw,48px);letter-spacing:-2px}
+.gradient{
+ background:linear-gradient(100deg,#b38aff,#668cff,#c18aff);
+ background-size:200%;background-clip:text;
+ color:transparent;animation:gradient 5s infinite linear;
+}
+.description{
+ color:var(--muted);font-size:14px;
+ line-height:1.9;max-width:620px;margin:20px 0 30px;
+}
+@keyframes pulse{50%{opacity:.35}}
+@keyframes gradient{to{background-position:200% center}}
+@keyframes float{50%{transform:translateY(-20px) rotate(8deg)}}
+
+/* HERO */
+.hero{position:relative;min-height:490px}
+.hero-content{position:relative;z-index:2;max-width:720px}
+.hero-orb{
+ position:absolute;right:5%;top:30px;
+ width:290px;height:290px;border-radius:50%;
+ background:radial-gradient(circle at 30% 25%,#d1b3ff,#8953ff 40%,#263dba 80%);
+ box-shadow:0 0 100px #8355ff45;
+ animation:float 7s infinite ease-in-out;
+}
+.hero-buttons{display:flex;gap:13px;flex-wrap:wrap}
+.secondary{
+ display:inline-flex;align-items:center;justify-content:center;
+ padding:13px 21px;border-radius:12px;
+ background:#ffffff08;color:white;
+ border:1px solid var(--border);font-weight:700;
+ transition:.3s;
+}
+.secondary:hover{background:#ffffff18;transform:translateY(-3px)}
+.stats{display:flex;gap:45px;margin-top:55px;flex-wrap:wrap}
+.stat strong{font-size:25px;display:block}
+.stat span{font-size:11px;color:var(--muted)}
+
+/* CARDS */
+.section-head{margin-bottom:35px}
+.kicker{
+ font-size:11px;color:#b18cff;
+ letter-spacing:3px;font-weight:800;
+ margin-bottom:13px;
+}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:17px}
+.card{
+ background:linear-gradient(145deg,#171725,#10101a);
+ border:1px solid var(--border);
+ padding:25px;border-radius:18px;
+ transition:.35s;position:relative;overflow:hidden;
+}
+.card:hover{
+ transform:translateY(-7px);
+ border-color:#986dff85;
+ box-shadow:0 15px 40px #0003;
+}
+.card-icon{font-size:30px;margin-bottom:20px}
+.card h3{font-size:17px;margin-bottom:10px}
+.card p{color:var(--muted);font-size:12px;line-height:1.8}
+.project-preview{
+ height:155px;border-radius:12px;
+ display:grid;place-items:center;
+ margin-bottom:20px;font-size:35px;
+ background:linear-gradient(135deg,#35255c,#7052a8);
+}
+.project:nth-child(2) .project-preview{background:linear-gradient(135deg,#153f4d,#398fa2)}
+.project:nth-child(3) .project-preview{background:linear-gradient(135deg,#3b2342,#a14c84)}
+.price{font-size:29px;font-weight:800;margin:20px 0}
+.card ul{list-style:none;margin:20px 0}
+.card li{font-size:12px;color:#d0cce0;margin:12px 0}
+.card li:before{content:"✦";color:#aa82ff;margin-right:10px}
+.card button{width:100%}
+.featured{border-color:#9c70ff;background:linear-gradient(145deg,#291b43,#12121e)}
+
+/* CALCULATOR */
+.calculator{
+ display:grid;grid-template-columns:1fr 1fr;
+ gap:25px;padding:30px;
+ border:1px solid #986dff55;border-radius:20px;
+ background:linear-gradient(140deg,#1b1530,#11111d);
+}
+.field{margin-bottom:19px}
+.field label{display:block;font-size:12px;margin-bottom:9px}
+.field select,.field input,.field textarea{
+ width:100%;padding:14px;
+ border:1px solid var(--border);border-radius:10px;
+ background:#090910;color:white;outline:none;
+}
+.field select:focus,.field input:focus{border-color:#9562ff}
+.result{
+ display:flex;flex-direction:column;
+ justify-content:center;align-items:center;
+ text-align:center;background:#ffffff06;
+ border-radius:15px;padding:25px;
+}
+.result strong{font-size:40px;color:#b58bff;margin:20px 0}
+
+/* ORDER */
+.order-layout{
+ display:grid;grid-template-columns:1fr 1fr;gap:35px;
+ background:linear-gradient(140deg,#201735,#10101d);
+ border:1px solid #9562ff55;
+ padding:35px;border-radius:22px;
+}
+.form{display:grid;gap:12px}
+.form input,.form select,.form textarea{
+ width:100%;padding:14px;border-radius:10px;
+ border:1px solid var(--border);
+ background:#090910;color:white;outline:none;
+}
+.form textarea{min-height:110px;resize:vertical}
+.form button{width:100%}
+
+/* COMMUNITY */
+.community{
+ position:relative;overflow:hidden;
+ padding:45px 35px;border-radius:25px;
+ border:1px solid #9364ff70;
+ background:
+ radial-gradient(ellipse at 85% 20%,#8553ff42,transparent 50%),
+ linear-gradient(130deg,#20163b,#101426);
+}
+.community:after{
+ content:"X";position:absolute;right:35px;top:-75px;
+ font-size:270px;font-weight:800;
+ color:#ffffff08;pointer-events:none;
+}
+.community-content{position:relative;z-index:2}
+.community h2{max-width:620px}
+.community p{color:#c4b8e2;font-size:14px;line-height:1.9;margin:17px 0 28px}
+.channel-button{
+ display:flex;justify-content:center;align-items:center;
+ gap:12px;width:100%;max-width:600px;
+ padding:21px 24px;border-radius:15px;
+ background:linear-gradient(110deg,#8952ff,#4d72ff);
+ color:white;font-weight:800;font-size:15px;
+ box-shadow:0 10px 40px #8053ff35;
+ transition:.3s;
+}
+.channel-button:hover{transform:translateY(-5px);box-shadow:0 15px 45px #8053ff70}
+.channel-button span{font-size:23px}
+
+/* FAQ */
+.faq-item{border-bottom:1px solid var(--border)}
+.faq-question{
+ width:100%;display:flex;justify-content:space-between;
+ align-items:center;padding:21px 0;
+ border:0;background:none;color:white;
+ text-align:left;font-weight:700;
+}
+.faq-question span{color:#ae8aff;font-size:22px;transition:.3s}
+.faq-answer{
+ max-height:0;overflow:hidden;
+ color:var(--muted);font-size:13px;line-height:1.9;
+ transition:.4s;
+}
+.faq-item.open .faq-answer{max-height:150px;padding-bottom:20px}
+.faq-item.open .faq-question span{transform:rotate(45deg)}
+
+/* FOOTER */
+footer{border-top:1px solid var(--border);padding:30px 0}
+.footer{
+ display:flex;justify-content:space-between;
+ align-items:center;gap:15px;flex-wrap:wrap;
+}
+footer p{font-size:11px;color:var(--muted)}
+.footer a{font-size:12px;color:#b99aff}
+
+/* MOBILE */
+@media(max-width:800px){
+ .hero-orb{right:-100px;opacity:.3}
+ .grid{grid-template-columns:repeat(2,1fr)}
+}
+@media(max-width:600px){
+ .header{height:65px}
+ .logo{font-size:23px}
+ .mail-button{padding:10px 12px;font-size:11px}
+ .menu-toggle{display:block}
+ .nav-wrap{display:none}
+ .nav-wrap.mobile-open{display:block}
+ .tabs{gap:4px;padding:10px 0}
+ .tab{padding:10px 12px;font-size:11px}
+ .page{padding:50px 0 70px}
+ h1{letter-spacing:-2.5px}
+ .hero{min-height:480px}
+ .hero-orb{width:200px;height:200px;right:-110px;top:70px}
+ .stats{gap:25px}
+ .stat strong{font-size:20px}
+ .grid{grid-template-columns:1fr}
+ .calculator,.order-layout{grid-template-columns:1fr;padding:19px}
+ .community{padding:30px 22px}
+ .community:after{font-size:160px;right:5px}
+ .channel-button{font-size:12px;padding:18px 12px}
+ .footer{flex-direction:column;align-items:flex-start}
+}
+@media(prefers-reduced-motion:reduce){
+ *,*:before,*:after{animation:none!important;transition:none!important}
+}
+</style>
+</head>
+
+<body>
+
+<header>
+ <div class="container header">
+  <a href="#" class="logo" onclick="showPage('home');return false">X<span>cortex</span>.</a>
+  <div class="header-right">
+   <a class="mail-button" href="mailto:artem.ovsyankin33@gmail.com?subject=Заказ%20сайта%20Xcortex">Заказать проект ↗</a>
+   <button class="menu-toggle" id="menuToggle" aria-label="Меню">☰</button>
+  </div>
+ </div>
+ <div class="nav-wrap" id="navWrap">
+  <nav class="container tabs">
+   <button class="tab active" data-page="home">⌂ Главная</button>
+   <button class="tab" data-page="services">◈ Услуги</button>
+   <button class="tab" data-page="portfolio">▣ Портфолио</button>
+   <button class="tab" data-page="pricing">◇ Тарифы</button>
+   <button class="tab" data-page="calculator">⌘ Калькулятор</button>
+   <button class="tab" data-page="order">✉ Заказ</button>
+   <button class="tab" data-page="community">✦ Сообщество</button>
+   <button class="tab" data-page="faq">? FAQ</button>
+  </nav>
+ </div>
+</header>
+
+<main class="container">
+
+<!-- HOME -->
+<section class="page active" id="home">
+ <div class="hero">
+  <div class="hero-orb"></div>
+  <div class="hero-content">
+   <div class="eyebrow"><span class="dot"></span> DIGITAL STUDIO · XCORTEX</div>
+   <h1>Создаём сайты.<br>Создаём <span class="gradient">будущее.</span></h1>
+   <p class="description">
+    Разрабатываем современные цифровые продукты,
+    которые выделяют твой бренд, привлекают клиентов
+    и превращают идеи в реальные проекты.
+   </p>
+   <div class="hero-buttons">
+    <button class="primary" onclick="showPage('order')">Обсудить проект ↗</button>
+    <button class="secondary" onclick="showPage('portfolio')">Наши работы ↓</button>
+   </div>
+   <div class="stats">
+    <div class="stat"><strong>24/7</strong><span>Цифровые решения</span></div>
+    <div class="stat"><strong>100%</strong><span>Индивидуальный подход</span></div>
+    <div class="stat"><strong>∞</strong><span>Возможности</span></div>
+   </div>
+  </div>
+ </div>
+ <div class="community">
+  <div class="community-content">
+   <div class="kicker">XCORTEX COMMUNITY</div>
+   <h2>Будь в центре <span class="gradient">событий.</span></h2>
+   <p>Новости студии, обновления, новые проекты и всё самое интересное от Xcortex — в нашем официальном канале.</p>
+   <a class="channel-button" href="https://max.ru/join/R0g8d4cu2PjLO9iwyfrRaeOZxJmcnZb8B1XV-3D7Jh0" target="_blank" rel="noopener noreferrer">
+    <span>✦</span> Перейти в официальный канал Xcortex ↗
+   </a>
+  </div>
+ </div>
+</section>
+
+<!-- SERVICES -->
+<section class="page" id="services">
+ <div class="section-head">
+  <div class="kicker">01 / НАПРАВЛЕНИЯ</div>
+  <h2>Наши возможности</h2>
+  <p class="description">От простой идеи до масштабного цифрового продукта.</p>
+ </div>
+ <div class="grid">
+  <div class="card"><div class="card-icon">✦</div><h3>Landing Page</h3><p>Продающие одностраничные сайты с современным дизайном и анимациями.</p></div>
+  <div class="card"><div class="card-icon">◈</div><h3>Интернет-магазины</h3><p>Каталоги, корзины, карточки товаров и системы заказов.</p></div>
+  <div class="card"><div class="card-icon">⌘</div><h3>Веб-приложения</h3><p>Личные кабинеты, панели управления и интерактивные системы.</p></div>
+  <div class="card"><div class="card-icon">⬡</div><h3>Корпоративные сайты</h3><p>Многостраничные сайты для компаний и брендов.</p></div>
+  <div class="card"><div class="card-icon">✧</div><h3>UI/UX дизайн</h3><p>Продуманные интерфейсы и уникальная визуальная концепция.</p></div>
+  <div class="card"><div class="card-icon">⚡</div><h3>Автоматизация</h3><p>Интеграции, API, формы и автоматизация бизнес-процессов.</p></div>
+ </div>
+</section>
+
+<!-- PORTFOLIO -->
+<section class="page" id="portfolio">
+ <div class="section-head">
+  <div class="kicker">02 / ПРИМЕРЫ</div>
+  <h2>Визуальные концепции</h2>
+  <p class="description">Примеры направлений дизайна для будущих проектов.</p>
+ </div>
+ <div class="grid">
+  <div class="card project"><div class="project-preview">✧</div><h3>Digital Experience</h3><p>Premium landing page</p></div>
+  <div class="card project"><div class="project-preview">◈</div><h3>Travel Platform</h3><p>Web service</p></div>
+  <div class="card project"><div class="project-preview">✦</div><h3>Creative Brand</h3><p>Brand website</p></div>
+ </div>
+ <p class="description">Это демонстрационные концепции интерфейсов, а не подтверждённые клиентские кейсы.</p>
+</section>
+
+<!-- PRICING -->
+<section class="page" id="pricing">
+ <div class="section-head">
+  <div class="kicker">03 / ПАКЕТЫ</div>
+  <h2>Выбери свой уровень</h2>
+  <p class="description">Предварительные цены. Итог зависит от технического задания.</p>
+ </div>
+ <div class="grid">
+  <div class="card">
+   <h3>START</h3><div class="price">от 5 000 ₽</div>
+   <p>Для небольших проектов.</p>
+   <ul><li>Одностраничный сайт</li><li>Адаптивная вёрстка</li><li>Базовые анимации</li><li>Форма обратной связи</li></ul>
+   <button class="secondary" onclick="choosePlan('START')">Выбрать тариф</button>
+  </div>
+  <div class="card featured">
+   <div class="kicker">POPULAR</div><h3>PRO</h3><div class="price">от 15 000 ₽</div>
+   <p>Для бизнеса и брендов.</p>
+   <ul><li>Индивидуальный дизайн</li><li>До 5 страниц</li><li>Продвинутые анимации</li><li>Формы и интеграции</li></ul>
+   <button class="primary" onclick="choosePlan('PRO')">Выбрать тариф</button>
+  </div>
+  <div class="card">
+   <h3>ULTIMATE</h3><div class="price">от 35 000 ₽</div>
+   <p>Для масштабных решений.</p>
+   <ul><li>Сложная архитектура</li><li>Backend и API</li><li>Личные кабинеты</li><li>Базы данных</li></ul>
+   <button class="secondary" onclick="choosePlan('ULTIMATE')">Выбрать тариф</button>
+  </div>
+ </div>
+</section>
+
+<!-- CALCULATOR -->
+<section class="page" id="calculator">
+ <div class="section-head">
+  <div class="kicker">04 / РАСЧЁТ</div>
+  <h2>Калькулятор стоимости</h2>
+  <p class="description">Настрой параметры и узнай ориентировочную стоимость.</p>
+ </div>
+ <div class="calculator">
+  <div>
+   <div class="field"><label>Тип сайта</label>
+    <select id="type">
+     <option value="5000">Landing Page</option>
+     <option value="12000">Корпоративный сайт</option>
+     <option value="20000">Интернет-магазин</option>
+     <option value="35000">Веб-приложение</option>
+    </select>
+   </div>
+   <div class="field"><label>Количество страниц</label>
+    <select id="pages">
+     <option value="1">1 страница</option>
+     <option value="3">3 страницы</option>
+     <option value="5">5 страниц</option>
+     <option value="10">10 страниц</option>
+    </select>
+   </div>
+   <div class="field"><label>Анимации</label>
+    <select id="motion">
+     <option value="0">Стандартные</option>
+     <option value="3000">Продвинутые</option>
+     <option value="7000">Premium Motion</option>
+    </select>
+   </div>
+   <div class="field"><label>Дополнительный функционал</label>
+    <select id="backend">
+     <option value="0">Без Backend</option>
+     <option value="5000">Формы и интеграции</option>
+     <option value="15000">База данных и API</option>
+     <option value="25000">Личный кабинет</option>
+    </select>
+   </div>
+  </div>
+  <div class="result">
+   <span>Предварительная стоимость</span>
+   <strong id="total">5 000 ₽</strong>
+   <p class="description">Ориентировочная оценка проекта.</p>
+   <button class="primary" onclick="orderCalculated()">Заказать по расчёту ↗</button>
+  </div>
+ </div>
+</section>
+
+<!-- ORDER -->
+<section class="page" id="order">
+ <div class="order-layout">
+  <div>
+   <div class="kicker">05 / НОВЫЙ ПРОЕКТ</div>
+   <h2>Давай создадим <span class="gradient">что-то крутое.</span></h2>
+   <p class="description">Заполни форму. Откроется почтовое приложение с уже подготовленным письмом. Останется только нажать «Отправить».</p>
+   <a class="secondary" href="mailto:artem.ovsyankin33@gmail.com?subject=Заказ%20проекта%20Xcortex">Написать напрямую ↗</a>
+  </div>
+  <form class="form" id="orderForm">
+   <div class="field"><label>Имя</label><input id="name" required placeholder="Как тебя зовут?"></div>
+   <div class="field"><label>Контакт для связи</label><input id="contact" required placeholder="Telegram или телефон"></div>
+   <div class="field"><label>Тип сайта</label>
+    <select id="orderType">
+     <option>Landing Page</option>
+     <option>Интернет-магазин</option>
+     <option>Корпоративный сайт</option>
+     <option>Веб-приложение</option>
+     <option>Другое</option>
+    </select>
+   </div>
+   <div class="field"><label>Бюджет</label>
+    <select id="budget">
+     <option>До 10 000 ₽</option>
+     <option>10 000–30 000 ₽</option>
+     <option>30 000–50 000 ₽</option>
+     <option>50 000 ₽+</option>
+    </select>
+   </div>
+   <div class="field"><label>Описание проекта</label><textarea id="details" placeholder="Расскажи о своей идее..."></textarea></div>
+   <button class="primary" type="submit">Отправить заявку на почту ↗</button>
+  </form>
+ </div>
+</section>
+
+<!-- COMMUNITY -->
+<section class="page" id="community">
+ <div class="community">
+  <div class="community-content">
+   <div class="kicker">06 / XCORTEX COMMUNITY</div>
+   <h2>Официальное сообщество <span class="gradient">Xcortex.</span></h2>
+   <p>Присоединяйся к нашему каналу! Следи за обновлениями, новыми проектами и развитием студии.</p>
+   <a class="channel-button" href="https://max.ru/join/R0g8d4cu2PjLO9iwyfrRaeOZxJmcnZb8B1XV-3D7Jh0" target="_blank" rel="noopener noreferrer">
+    <span>✦</span> Перейти в официальный канал Xcortex ↗
+   </a>
+  </div>
+ </div>
+</section>
+
+<!-- FAQ -->
+<section class="page" id="faq">
+ <div class="section-head">
+  <div class="kicker">07 / ПОМОЩЬ</div>
+  <h2>Частые вопросы</h2>
+ </div>
+ <div class="faq-list">
+  <div class="faq-item">
+   <button class="faq-question">Сколько занимает разработка?<span>+</span></button>
+   <div class="faq-answer">Срок зависит от сложности. Простой сайт может быть готов за несколько дней, сложный сервис потребует больше времени.</div>
+  </div>
+  <div class="faq-item">
+   <button class="faq-question">Будет ли мобильная версия?<span>+</span></button>
+   <div class="faq-answer">Да. Сайты создаются с адаптацией под телефоны, планшеты и компьютеры.</div>
+  </div>
+  <div class="faq-item">
+   <button class="faq-question">Можно ли сделать уникальный дизайн?<span>+</span></button>
+   <div class="faq-answer">Да. Дизайн, структура, анимации и функциональность подбираются под конкретный проект.</div>
+  </div>
+  <div class="faq-item">
+   <button class="faq-question">Как заказать сайт?<span>+</span></button>
+   <div class="faq-answer">Перейди во вкладку «Заказ», заполни форму и отправь подготовленное письмо.</div>
+  </div>
+ </div>
+</section>
+
+</main>
+
+<footer>
+ <div class="container footer">
+  <a href="#" class="logo" onclick="showPage('home');return false">X<span>cortex</span>.</a>
+  <p>© 2026 Xcortex Digital Studio</p>
+  <a href="mailto:artem.ovsyankin33@gmail.com">Связаться с нами ↗</a>
+ </div>
+</footer>
+
+<script>
+// TAB NAVIGATION
+function showPage(id){
+ const page=document.getElementById(id);
+ if(!page)return;
+
+ document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+ page.classList.add('active');
+
+ document.querySelectorAll('.tab').forEach(t=>{
+  t.classList.toggle('active',t.dataset.page===id);
+ });
+
+ document.getElementById('navWrap').classList.remove('mobile-open');
+ document.getElementById('menuToggle').textContent='☰';
+
+ window.scrollTo({top:0,behavior:'smooth'});
+}
+
+document.querySelectorAll('.tab').forEach(tab=>{
+ tab.addEventListener('click',()=>showPage(tab.dataset.page));
+});
+
+// MOBILE MENU
+document.getElementById('menuToggle').addEventListener('click',()=>{
+ const nav=document.getElementById('navWrap');
+ nav.classList.toggle('mobile-open');
+ document.getElementById('menuToggle').textContent=
+ nav.classList.contains('mobile-open')?'✕':'☰';
+});
+
+// PRICING
+function choosePlan(plan){
+ showPage('order');
+ document.getElementById('details').value='Интересует тариф '+plan;
+}
+
+// CALCULATOR
+const calcIds=['type','pages','motion','backend'];
+
+function calculate(){
+ const base=Number(document.getElementById('type').value);
+ const pages=Number(document.getElementById('pages').value);
+ const motion=Number(document.getElementById('motion').value);
+ const backend=Number(document.getElementById('backend').value);
+ const total=base+(pages-1)*1500+motion+backend;
+
+ document.getElementById('total').textContent=
+ total.toLocaleString('ru-RU')+' ₽';
+
+ return total;
+}
+
+calcIds.forEach(id=>{
+ document.getElementById(id).addEventListener('change',calculate);
+});
+
+function orderCalculated(){
+ const total=calculate();
+ showPage('order');
+ document.getElementById('details').value=
+ 'Заказ по калькулятору. Ориентировочная стоимость: '+
+ total.toLocaleString('ru-RU')+' ₽';
+}
+
+// FAQ
+document.querySelectorAll('.faq-question').forEach(btn=>{
+ btn.addEventListener('click',()=>{
+  const item=btn.parentElement;
+  const wasOpen=item.classList.contains('open');
+  document.querySelectorAll('.faq-item').forEach(x=>x.classList.remove('open'));
+  if(!wasOpen)item.classList.add('open');
+ });
+});
+
+// EMAIL ORDER
+document.getElementById('orderForm').addEventListener('submit',e=>{
+ e.preventDefault();
+
+ const name=document.getElementById('name').value.trim();
+ const contact=document.getElementById('contact').value.trim();
+ const type=document.getElementById('orderType').value;
+ const budget=document.getElementById('budget').value;
+ const details=document.getElementById('details').value.trim();
+
+ const subject='Новая заявка на сайт — Xcortex';
+
+ const body=
+ 'НОВАЯ ЗАЯВКА XCORTEX\n\n'+
+ 'Имя: '+name+'\n'+
+ 'Контакт: '+contact+'\n'+
+ 'Тип сайта: '+type+'\n'+
+ 'Бюджет: '+budget+'\n\n'+
+ 'Описание проекта:\n'+(details||'Не указано');
+
+ const mailto='mailto:artem.ovsyankin33@gmail.com'+
+ '?subject='+encodeURIComponent(subject)+
+ '&body='+encodeURIComponent(body);
+
+ window.location.href=mailto;
+});
+
+calculate();
+</script>
+</body>
+</html>
